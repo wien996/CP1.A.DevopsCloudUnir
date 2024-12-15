@@ -16,8 +16,8 @@ pipeline {
         }
 
         stage('Tests') {
-            parallel {
-                stage('Unit'){
+            parallel {	
+                stage('Unit') {
                     steps {
                         catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                             bat '''
@@ -27,7 +27,6 @@ pipeline {
                         }
                     }
                 }
-
                 stage('Rest'){
                     steps {
                         script {
@@ -35,7 +34,7 @@ pipeline {
                             def restStages = [:]
                             // Use a reduced number of parallel stages, e.g., 2 instances of REST tests
                             for (int i = 0; i < 2; i++) {
-                                def index = i
+                               def index = i
                                 restStages["RestTest${index}"] = {
                                     bat """
                                         start /B java -jar C:\\Tools\\wiremock-standalone-3.10.0.jar --port ${9090 + index}
@@ -53,12 +52,12 @@ pipeline {
                     }
                 }
 
-                stage('OverloadSimulation'){
+                stage('OverloadSimulation') {
                     steps {
                         script {
-                            echo 'Simulating CPU overload with reduced iterations.'
+                            echo 'Simulating overload by means of intensive loops'
                             bat '''
-                                for /L %%x in (1, 1, 10000) do @(
+                                for /L %%x in (1, 1, 100000) do @(
                                     echo Cargando CPU - Iteración %%x
                                     > nul
                                 )
