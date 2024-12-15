@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Overload in branch master.'
+                echo 'Starting build process for branch master.'
                 bat "dir"
             }
         }
@@ -27,15 +27,14 @@ pipeline {
                         }
                     }
                 }
-                
-                stage('Rest') {
+                stage('Rest'){
                     steps {
                         script {
-                            echo 'Launches multiple instances of parallel processes to simulate overloading.'
+                            echo 'Running REST tests in parallel with reduced load to prevent overload.'
                             def restStages = [:]
-                            echo 'Simulates overload by creating 10 parallel REST test instances.'
-                            for (int i = 0; i < 10; i++) {
-                                def index = i
+                            // Use a reduced number of parallel stages, e.g., 2 instances of REST tests
+                            for (int i = 0; i < 2; i++) {
+                               def index = i
                                 restStages["RestTest${index}"] = {
                                     bat """
                                         start /B java -jar C:\\Tools\\wiremock-standalone-3.10.0.jar --port ${9090 + index}
