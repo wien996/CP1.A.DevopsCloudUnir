@@ -19,12 +19,12 @@ pipeline {
         }
         stage('Tests') {
             parallel {			
-				stage('Unit'){
+		stage('Unit'){
                     steps {
                         catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                             bat '''
                                 SET PYTHONPATH=%WORKSPACE%
-                                ${PYTHON}\\pytest --junitxml=result-unit.xml test\\unit
+                                C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pytest --junitxml=result-unit.xml test\\unit
                             '''
                         }
                     }
@@ -37,7 +37,7 @@ pipeline {
                             bat '''
                                 SET FLASK_APP=${FLASK_APP}
                                 SET PYTHONPATH=%WORKSPACE%
-                                start /B ${FLASK}\\flask run
+                                start /B C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\flask run
                                 ${PYTHON_BIN}\\pytest --junitxml=result-rest.xml test\\rest
                             '''
                         }
