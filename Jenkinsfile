@@ -32,7 +32,6 @@ pipeline {
 			
                 stage('Rest') {
                     steps {
-                        echo 'Running REST API Tests...'
                         catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                             bat '''
                                 SET FLASK_APP=${FLASK_APP}
