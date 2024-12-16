@@ -37,7 +37,7 @@ pipeline {
                                 SET FLASK_APP=${FLASK_APP}
                                 SET PYTHONPATH=%WORKSPACE%
                                 start /B C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\flask run
-                                ${PYTHON_BIN}\\pytest --junitxml=result-rest.xml test\\rest
+                                C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pytest --junitxml=result-rest.xml test\\rest
                             '''
                         }
                     }
