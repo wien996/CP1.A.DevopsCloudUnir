@@ -53,5 +53,6 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.status, http.client.NOT_ACCEPTABLE, f"Error en la petición API a {url}")
         self.assertEqual(response.read().decode(), "Divisor cannot be zero", "ERROR DIVIDE BY ZERO")
 
+
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
