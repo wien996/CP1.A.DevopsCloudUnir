@@ -37,7 +37,7 @@ pipeline {
                     }
                 }
 
-                stage('Integration') {
+                stage('Rest') {
                     steps {
                         echo 'Running Integration Tests...'
                         // Iniciar WireMock para pruebas simuladas
@@ -62,10 +62,7 @@ pipeline {
         stage('Results') {
             steps {
                 echo 'Collecting and displaying test results...'
-                // Publicar resultados en formato JUnit
                 junit 'result*.xml'
-
-                // Opcional: Archivar reportes para inspección posterior
                 archiveArtifacts artifacts: 'result*.xml', allowEmptyArchive: true
             }
         }
