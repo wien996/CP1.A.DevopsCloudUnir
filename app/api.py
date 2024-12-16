@@ -5,10 +5,6 @@ from flask import Flask
 from app import util
 from app.calc import Calculator
 
-from flask import Flask, jsonify, abort
-
-app = Flask(__name__)
-
 CALCULATOR = Calculator()
 api_application = Flask(__name__)
 HEADERS = {"Content-Type": "text/plain", "Access-Control-Allow-Origin": "*"}
@@ -37,15 +33,20 @@ def substract(op_1, op_2):
         return (str(e), http.client.BAD_REQUEST, HEADERS)
 
 
-@app.route('/calc/multiply/<int:x>/<int:y>', methods=['GET'])
-def multiply(x, y):
-    return jsonify(x * y)
+@api_application.route('/calc/multiply/<int:num1>/<int:num2>', methods=['GET'])
+def multiply(num1, num2):
+    try:
+        result = num1 * num2
+        return jsonify({"operation": "multiply", "result": result}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-@app.route('/calc/divide/<int:x>/<int:y>', methods=['GET'])
+@api_application.route('/calc/divide/<int:x>/<int:y>', methods=['GET'])
 def divide(x, y):
-    if y == 0:
-        abort(406, description="Divisor cannot be zero")
-    return jsonify(x / y)
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    try:
+        if num2 == 0:
+            return jsonify({"error": "Divisor cannot be zero"}), 406
+        result = num1 / num2
+        return jsonify({"operation": "divide", "result": result}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
