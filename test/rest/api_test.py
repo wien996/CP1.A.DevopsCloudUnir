@@ -48,7 +48,7 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.read().decode(), "2.0", "ERROR DIVIDE")
 
     def test_api_divide_by_zero(self):
-        url = f"{BASE_URL_MOCK}/calc/divide/8/0"
+        url = f"{BASE_URL}/calc/divide/8/0"
         response = urlopen(url, timeout=DEFAULT_TIMEOUT)
         self.assertEqual(response.status, http.client.NOT_ACCEPTABLE, f"Error en la petición API a {url}")
         self.assertEqual(response.read().decode(), "Divisor cannot be zero", "ERROR DIVIDE BY ZERO")
